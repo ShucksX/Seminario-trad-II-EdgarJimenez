@@ -139,7 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lexico.cpp" />
     <ClCompile Include="Seminario-trad-II-EdgarJimenez.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lexico.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
