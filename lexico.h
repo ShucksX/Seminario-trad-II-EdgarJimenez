@@ -11,12 +11,23 @@ class Lexico {
 private:
     string cadena;
     int ind;
-    char ch;
+    bool continuar;
     int estado;
+    char sigCaracter();
+    bool esLetra(char c);
+    bool esDigito(char c);
+    bool esEspacio(char c);
+    void volver();
 
 public:
+    char ch;
+    string token;
+    string simbolo;
+    int tipo;
     Lexico();
-    void entrada(string cadena);
+    void entrada(char cadena [200]);
+    bool fin();
+    void sigSimbolo();
 };
 
 #endif
