@@ -13,7 +13,7 @@ int main() {
     Lexico lexico;
 
     char cadena [200];
-    cout << "Por favor inserte su codigo aqui:";
+    cout << "Por favor inserte su codigo aqui: " << endl;
     cin.getline(cadena,200);
 
     lexico.entrada(cadena);
