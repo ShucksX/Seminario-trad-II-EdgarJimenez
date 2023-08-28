@@ -18,16 +18,25 @@ int main() {
 
     lexico.entrada(cadena);
 
-    cout << "Resultado del analisis lexico:" << endl;
-    cout << "Palabra\t\tSimbolo\t\tTipo" << endl;
-
+    //cout << "Palabra\t\tSimbolo\t\tTipo" << endl;
+    bool lexicoFlag = true;
     while (lexico.ch != '$') {
         lexico.sigSimbolo();
-        cout << lexico.token << "\t\t" << lexico.simbolo << "\t\t" << lexico.tipo << endl;
+        if (lexico.tipo < 0) {
+            lexicoFlag = false;
+        }
+        //cout << lexico.token << "\t\t" << lexico.simbolo << "\t\t" << lexico.tipo << endl;
     }
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    cout << "Resultado del analisis lexico: ";
+    if (lexicoFlag) {
+        cout << "Correcto" << endl;
+    }
+    else {
+        cout << "Error" << endl;
+    }
 
     cout << "Programa terminado, presiona enter para terminar" << endl;
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cin.get();
 
     return 0;
