@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "lexico.h"
+#include "sintactico.h"
 
 using namespace std;
 
@@ -11,22 +12,48 @@ using namespace std;
 
 int main() {
     Lexico lexico;
+    Sintactico sintactico;
 
     char cadena [200];
     cout << "Por favor inserte su codigo aqui: " << endl;
     cin.getline(cadena,200);
 
     lexico.entrada(cadena);
+    sintactico.empezar();
 
-    //cout << "Palabra\t\tSimbolo\t\tTipo" << endl;
+    cout << "Estado en pila\t\tEntrada\t\tSalida" << endl;
     bool lexicoFlag = true;
-    while (lexico.ch != '$') {
-        lexico.sigSimbolo();
+    string entradaSint = lexico.getCadenaFromInd();
+    string back = sintactico.pilaTop();
+    lexico.sigSimbolo();
+
+    int salida = sintactico.salida(lexico.token, lexico.tipo);
+    while (salida != -199) {
         if (lexico.tipo < 0) {
             lexicoFlag = false;
         }
-        //cout << lexico.token << "\t\t" << lexico.simbolo << "\t\t" << lexico.tipo << endl;
+        if (salida < -199) {
+            cout << back << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
+            cout << "Resultado del analisis sintactico: Error" << endl;
+            break;
+        }
+        else if (salida < 0) {
+            cout << back << "\t\t\t" << entradaSint << "$\t\tr" << abs(salida) << endl;
+        }
+        else {
+            cout << back << "\t\t\t"<< entradaSint  << "$\t\td" << salida << endl;
+        }
+        entradaSint = lexico.getCadenaFromInd();
+        back = sintactico.pilaTop();
+        lexico.sigSimbolo();
+        salida = sintactico.salida(lexico.token, lexico.tipo);
     }
+    if (salida == -199) {
+        cout << back << "\t\t\t" << entradaSint << "$\t\t" << "r0 (acept)" << endl;
+        cout << "Resultado del analisis sintactico: Correcto" << endl;
+    }
+
+    //RESULTADO DE ANALISIS LEXICO
     cout << "Resultado del analisis lexico: ";
     if (lexicoFlag) {
         cout << "Correcto" << endl;

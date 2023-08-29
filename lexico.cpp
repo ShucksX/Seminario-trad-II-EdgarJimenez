@@ -740,3 +740,7 @@ void Lexico::volver() {
     ind--;
     continuar = false;
 }
+
+string  Lexico::getCadenaFromInd() {
+    return cadena.substr(ind);
+}
