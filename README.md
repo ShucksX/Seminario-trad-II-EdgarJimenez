@@ -19,17 +19,17 @@ Aqui se presenta una captura de pantalla con el resultado:
 ## Analizador sintactico ##
 
 Este analizador utiliza reglas gramaticas con el objetivo de verificar que el orden de los tokens es apropiado  
-El analizador lexico actualmente solo reconoce una suma de un identificador con otro, como lo puede ser a+b o azul+cafe, ademas imprime una tabla con el proceso que se hace para deducir si esto es correcto o no.
+El analizador lexico actualmente solo reconoce una suma recurrente de un identificador con otro, como lo puede ser a+b+c+d+e o azul+cafe+verde, ademas imprime una tabla con el proceso que se hace para deducir si esto es correcto o no.
 
 ## Demostracion ##
-![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/b8e3ef89-76e0-434a-907d-cb69776fea8b)  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/90f454e1-8e95-4734-8efc-ef10b472c16a)  
 Este es un ejemplo de un codigo sintacticamente correcto con las reglas actuales.  
   
-![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/e7022f99-9861-4b07-ab3e-d40277aa51cf)  
-Este es  un ejemplo de un codigo sintactimente incorrecto  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/81613f13-85ad-40f8-bc8d-6abfe690360e)
+Este es  un ejemplo de un codigo sintactimente incorrecto (hay dos signos de suma entre un operador y otro)  
   
-![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/3090daba-abb9-4467-bfbe-124f31662060)  
-Finalmente, este es un ejemplo de tokens lexicamente correctos pero que forman parte de nuestras reglas todavia.
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/a7dc0de9-12b8-4dc1-b714-43dca9103677)  
+Finalmente, este es un ejemplo de tokens lexicamente correctos pero que no forman parte de nuestras reglas todavia.
 
 
 
