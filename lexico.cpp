@@ -64,7 +64,7 @@ void Lexico::sigSimbolo() {
                   else if (esSuma(ch)) {
                     token += ch;
                     continuar = false;
-                    tipo = 5;
+                    tipo = 1;
                     simbolo = "opSuma";
                   }
                   else if (esMul(ch)) {
@@ -117,7 +117,10 @@ void Lexico::sigSimbolo() {
                         //No se hace nada en realidad, solo sigue consumiendo
                   }
                   else if(ch== '$'){
-                    return;
+                    token += ch;
+                    tipo = 2;
+                    simbolo = "Fin de entrada";
+                    continuar = false;
                   }
                   else {
                   estado = 3; //Estado para cadenas de error
@@ -156,7 +159,7 @@ void Lexico::sigSimbolo() {
                 }
                   else {
                 volver();
-                tipo = 1;
+                tipo = 9999; //TODO ESTA CAMBIADO PARA EL SINTACTICO INICIAL
                 simbolo = "Entero";
                 }
                 break;
@@ -193,12 +196,12 @@ void Lexico::sigSimbolo() {
                 }
                 else if (esEspacio(ch) || ch == '$') {
                     continuar = false;
-                    tipo = 2;
+                    tipo = 9999; //TODO ESTO CAMBIA EN SINTACTICO COMPLETO
                     simbolo = "Real";
                 }
                 else {
                     volver();
-                    tipo = 2;
+                    tipo = 9999; //TODO ESTO CAMBIA EN SINTACTICO COMPLETO
                     simbolo = "Real";
                 }
                 break;
