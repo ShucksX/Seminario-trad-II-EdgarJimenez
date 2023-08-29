@@ -34,6 +34,7 @@ int main() {
         }
         if (salida < -199) {
             cout << back << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
+            
             cout << "Resultado del analisis sintactico: Error" << endl;
             break;
         }

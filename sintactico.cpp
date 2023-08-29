@@ -53,12 +53,15 @@ int Sintactico::salida(string token, int tipo) { //Funcion principal
 	else if (estado == -1) {//Regla 1
 		return regla1();
 	}
+	else if (estado == -2) {//Regla 2
+		return regla2();
+	}
 	else {//Error
 		return -200;
 	}
 }
 
-int Sintactico::regla1() { // E -> id + id
+int Sintactico::regla1() { // E -> id + E
 	for (int i = 0; i < 6;i++) { //Haz pop al doble de tokens en la regla
 		popPila();
 	}
@@ -73,4 +76,19 @@ int Sintactico::regla1() { // E -> id + id
 		return -1;
 	}
 
+}
+int Sintactico::regla2() { // E -> id
+	for (int i = 0; i < 2; i++) { //Haz pop al doble de tokens en la regla
+		popPila();
+	}
+	int fila = stoi(pilaTop()); //Ultimo valor en pila
+	int estado = getLRAt(fila, 3); //Obtener el valor para E
+	if (estado < -199) {
+		return -200; //Error 
+	}
+	else {
+		pila.push("E");
+		pila.push(to_string(estado));
+		return -2;
+	}
 }
