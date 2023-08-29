@@ -29,7 +29,7 @@ Este es un ejemplo de un codigo sintacticamente correcto con las reglas actuales
 Este es  un ejemplo de un codigo sintactimente incorrecto  
   
 ![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/3090daba-abb9-4467-bfbe-124f31662060)  
-Finalmente, este es un ejemplo de tokens lexicamente correctos pero que forman parte de nuestras reglas todavia.
+Finalmente, este es un ejemplo de tokens lexicamente correctos pero que no forman parte de nuestras reglas todavia.
 
 
 
