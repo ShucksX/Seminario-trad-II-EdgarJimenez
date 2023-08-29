@@ -15,3 +15,21 @@ En el analizador lexico se analiza toda la cadena fuente o mas bien, el codigo f
 Aqui se presenta una captura de pantalla con el resultado:
 ## Demostracion ##
 ![AnalizadorLexico](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/a73fe174-f904-4d2a-abb9-9c361f305c01)
+
+## Analizador sintactico ##
+
+Este analizador utiliza reglas gramaticas con el objetivo de verificar que el orden de los tokens es apropiado  
+El analizador lexico actualmente solo reconoce una suma recurrente de un identificador con otro, como lo puede ser a+b+c+d+e o azul+cafe+verde, ademas imprime una tabla con el proceso que se hace para deducir si esto es correcto o no.
+
+## Demostracion ##
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/90f454e1-8e95-4734-8efc-ef10b472c16a)  
+Este es un ejemplo de un codigo sintacticamente correcto con las reglas actuales.  
+  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/81613f13-85ad-40f8-bc8d-6abfe690360e)
+Este es  un ejemplo de un codigo sintactimente incorrecto (hay dos signos de suma entre un operador y otro)  
+  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/a7dc0de9-12b8-4dc1-b714-43dca9103677)  
+Finalmente, este es un ejemplo de tokens lexicamente correctos pero que no forman parte de nuestras reglas todavia.
+
+
+

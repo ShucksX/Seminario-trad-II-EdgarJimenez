@@ -40,6 +40,7 @@ public:
     void entrada(char cadena [200]);
     bool fin();
     void sigSimbolo();
+    string getCadenaFromInd();
 };
 
 #endif

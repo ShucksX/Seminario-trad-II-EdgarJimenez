@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "lexico.h"
+#include "sintactico.h"
 
 using namespace std;
 
@@ -11,23 +12,59 @@ using namespace std;
 
 int main() {
     Lexico lexico;
+    Sintactico sintactico;
 
     char cadena [200];
     cout << "Por favor inserte su codigo aqui: " << endl;
     cin.getline(cadena,200);
 
     lexico.entrada(cadena);
+    sintactico.empezar();
 
-    cout << "Resultado del analisis lexico:" << endl;
-    cout << "Palabra\t\tSimbolo\t\tTipo" << endl;
+    cout << "Estado en pila\t\tEntrada\t\tSalida" << endl;
+    bool lexicoFlag = true;
+    string entradaSint = lexico.getCadenaFromInd();
+    string back = sintactico.pilaTop();
+    lexico.sigSimbolo();
 
-    while (lexico.ch != '$') {
+    int salida = sintactico.salida(lexico.token, lexico.tipo);
+    while (salida != -199) {
+        if (lexico.tipo < 0) {
+            lexicoFlag = false;
+        }
+        if (salida < -199) {
+            cout << back << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
+            
+            cout << "Resultado del analisis sintactico: Error" << endl;
+            break;
+        }
+        else if (salida < 0) {
+            cout << back << "\t\t\t" << entradaSint << "$\t\tr" << abs(salida) << endl;
+        }
+        else {
+            cout << back << "\t\t\t"<< entradaSint  << "$\t\td" << salida << endl;
+        }
+        entradaSint = lexico.getCadenaFromInd();
+        back = sintactico.pilaTop();
         lexico.sigSimbolo();
-        cout << lexico.token << "\t\t" << lexico.simbolo << "\t\t" << lexico.tipo << endl;
+        salida = sintactico.salida(lexico.token, lexico.tipo);
     }
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    if (salida == -199) {
+        cout << back << "\t\t\t" << entradaSint << "$\t\t" << "r0 (acept)" << endl;
+        cout << "Resultado del analisis sintactico: Correcto" << endl;
+    }
+
+    //RESULTADO DE ANALISIS LEXICO
+    cout << "Resultado del analisis lexico: ";
+    if (lexicoFlag) {
+        cout << "Correcto" << endl;
+    }
+    else {
+        cout << "Error" << endl;
+    }
 
     cout << "Programa terminado, presiona enter para terminar" << endl;
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cin.get();
 
     return 0;

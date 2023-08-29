@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="lexico.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sintactico.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lexico.h" />
+    <ClInclude Include="sintactico.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
