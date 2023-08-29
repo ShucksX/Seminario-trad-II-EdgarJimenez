@@ -8,6 +8,8 @@ Consta de 3 analizadores (no todos terminados de momento), el analizador lexico,
 ## Links ##
 Mini analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/minilexico_JimenezAcevesEdgar  
 Analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/analizadorLexico_JimenezAcevesEdgar  
+Sintactico Ejercicio 1: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico1_JimenezAcevesEdgar  
+Sintactico Ejercicio 2: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico2_JimenezAcevesEdgar  
 
 ## Analizador Lexico ## 
 
