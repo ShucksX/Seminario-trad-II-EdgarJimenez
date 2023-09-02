@@ -24,7 +24,7 @@ int main() {
     cout << "Estado en pila\t\tEntrada\t\tSalida" << endl;
     bool lexicoFlag = true;
     string entradaSint = lexico.getCadenaFromInd();
-    string back = sintactico.pilaTop();
+    string back = sintactico.pilaTop()->getToken();
     lexico.sigSimbolo();
 
     int salida = sintactico.salida(lexico.token, lexico.tipo);
@@ -45,7 +45,7 @@ int main() {
             cout << back << "\t\t\t"<< entradaSint  << "$\t\td" << salida << endl;
         }
         entradaSint = lexico.getCadenaFromInd();
-        back = sintactico.pilaTop();
+        back = sintactico.pilaTop()->getToken();
         lexico.sigSimbolo();
         salida = sintactico.salida(lexico.token, lexico.tipo);
     }
