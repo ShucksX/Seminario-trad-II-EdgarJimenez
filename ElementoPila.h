@@ -23,9 +23,12 @@ class Terminal : public ElementoPila{
 };
 
 class NoTerminal : public ElementoPila {
+	private:
+		stack<ElementoPila*> nodo;
 	public:
 		NoTerminal(string tokens);
-		stack<ElementoPila*> nodo;
+		void  pushNodo(ElementoPila* elemento);
+		
 };
 
 class Estado : public ElementoPila {

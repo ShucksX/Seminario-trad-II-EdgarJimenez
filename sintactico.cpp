@@ -62,7 +62,9 @@ int Sintactico::salida(string tokens, int tipo) { //Funcion principal
 }
 
 int Sintactico::regla1() { // E -> id + E
+	NoTerminal* nt = new NoTerminal("E");
 	for (int i = 0; i < 6;i++) { //Haz pop al doble de tokens en la regla
+		nt->pushNodo(pilaTop());
 		popPila();
 	}
 	int fila = stoi(pilaTop()->getToken()); //Ultimo valor en pila
@@ -71,14 +73,16 @@ int Sintactico::regla1() { // E -> id + E
 		return -200; //Error 
 	}
 	else {
-		pila.push(new NoTerminal("E"));
+		pila.push(nt);
 		pila.push(new Estado(to_string(estado)));
 		return -1;
 	}
 
 }
 int Sintactico::regla2() { // E -> id
+	NoTerminal* nt = new NoTerminal("E");
 	for (int i = 0; i < 2; i++) { //Haz pop al doble de tokens en la regla
+		nt->pushNodo(pilaTop());
 		popPila();
 	}
 	int fila = stoi(pilaTop()->getToken()); //Ultimo valor en pila
@@ -87,7 +91,7 @@ int Sintactico::regla2() { // E -> id
 		return -200; //Error 
 	}
 	else {
-		pila.push(new NoTerminal("E"));
+		pila.push(nt);
 		pila.push(new Estado(to_string(estado)));
 		return -2;
 	}

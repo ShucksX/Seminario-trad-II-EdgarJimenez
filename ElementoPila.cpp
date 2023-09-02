@@ -16,6 +16,10 @@ NoTerminal::NoTerminal(string tokens) {
 	setToken(tokens);
 }
 
+void NoTerminal::pushNodo(ElementoPila* elemento) {
+	nodo.push(elemento);
+}
+
 Estado::Estado(string tokens) {
 	setToken(tokens);
 }
