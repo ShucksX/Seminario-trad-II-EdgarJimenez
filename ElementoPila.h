@@ -15,6 +15,7 @@ class ElementoPila {
 	public:
 		string getToken();
 		void setToken(string tokens);
+		virtual void printToken(int nivel);
 };
 
 class Terminal : public ElementoPila{
@@ -28,7 +29,7 @@ class NoTerminal : public ElementoPila {
 	public:
 		NoTerminal(string tokens);
 		void  pushNodo(ElementoPila* elemento);
-		
+		void printToken(int nivel) override;
 };
 
 class Estado : public ElementoPila {

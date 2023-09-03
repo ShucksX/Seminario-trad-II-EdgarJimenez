@@ -96,3 +96,7 @@ int Sintactico::regla2() { // E -> id
 		return -2;
 	}
 }
+
+int Sintactico::getPilaSize() {
+	return pila.size();
+}

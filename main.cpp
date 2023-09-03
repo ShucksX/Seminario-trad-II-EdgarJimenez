@@ -19,7 +19,6 @@ int main() {
     cin.getline(cadena,200);
 
     lexico.entrada(cadena);
-    sintactico.empezar();
 
     cout << "Estado en pila\t\tEntrada\t\tSalida" << endl;
     bool lexicoFlag = true;
@@ -52,7 +51,15 @@ int main() {
     if (salida == -199) {
         cout << back << "\t\t\t" << entradaSint << "$\t\t" << "r0 (acept)" << endl;
         cout << "Resultado del analisis sintactico: Correcto" << endl;
+        cout << "Arbol de la pila: " << endl;
+
+        while (sintactico.getPilaSize() != 0) {
+            sintactico.pilaTop()->printToken(0);
+            sintactico.popPila();
+        }
     }
+
+   
 
     //RESULTADO DE ANALISIS LEXICO
     cout << "Resultado del analisis lexico: ";

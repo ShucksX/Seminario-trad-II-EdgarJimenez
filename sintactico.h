@@ -22,6 +22,7 @@ class Sintactico{
 		int getLRAt(int fila, int columna);
 		void printLR();
 		void popPila();
+		int getPilaSize();
 		ElementoPila* pilaTop();
 		int salida(string tokens, int tipo);
 };
