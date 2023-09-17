@@ -10,6 +10,7 @@ Mini analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimene
 Analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/analizadorLexico_JimenezAcevesEdgar  
 Sintactico Ejercicio 1: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico1_JimenezAcevesEdgar  
 Sintactico Ejercicio 2: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico2_JimenezAcevesEdgar  
+Sintactico con objetos: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintacticoObjetos_JimenezAcevesEdgar
 
 ## Analizador Lexico ## 
 
