@@ -10,7 +10,8 @@ Mini analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimene
 Analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/analizadorLexico_JimenezAcevesEdgar  
 Sintactico Ejercicio 1: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico1_JimenezAcevesEdgar  
 Sintactico Ejercicio 2: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico2_JimenezAcevesEdgar  
-Sintactico con objetos: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintacticoObjetos_JimenezAcevesEdgar
+Sintactico con objetos: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintacticoObjetos_JimenezAcevesEdgar  
+Gramatica Completa: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/SintacticoCompleto_JimenezAcevesEdgar
 
 ## Analizador Lexico ## 
 
@@ -37,7 +38,12 @@ Finalmente, este es un ejemplo de tokens lexicamente correctos pero que no forma
 ## Arbol de la pila (Implementacion con objetos) ##
 Se implementa una pila que acepte objetos de tipo ElementoPila, el cual hereda a otras clases llamadas Terminal, NoTerminal y Estado, gracias a esto ahora se puede mostrar un arbol de la pila para el analizador sintactico.  
 Se imprime los mismos resultados en la verificacion de la regla, pero si la entrada es aceptada por el analizador sintactico, imprime el arbol de la pila de la manera siguiente:  
-![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/ffd1b2e6-43a3-48c3-ab0d-dc2feb91a1b2)
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/ffd1b2e6-43a3-48c3-ab0d-dc2feb91a1b2)  
+
+## Gramatica completa ##  
+Con la gramatica completa obtenemos este resultado:  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/d0d1d9bd-6a1a-4813-bff0-526021277dea)
+
 
 
 
