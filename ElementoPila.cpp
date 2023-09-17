@@ -10,7 +10,7 @@ void ElementoPila::setToken(string tokens) {
 
 void ElementoPila::printToken(int nivel) {
 	for (int i = 0; i < nivel; i++) {
-		cout << "\t";
+		cout << " ";
 	}
 	cout << token << endl;
 }
@@ -31,10 +31,15 @@ void NoTerminal::printToken(int nivel){
 	for (int i = 0; i < nivel; i++) {
 		cout << " ";
 	}
-	cout << "E -" << endl;
+	cout << this->getToken() <<" -" << endl;
+	stack<ElementoPila*> aux;
 	while (nodo.size() != 0) {
-		nodo.top()->printToken(nivel+1);
+		aux.push(nodo.top());
 		nodo.pop();
+	}
+	while (aux.size() != 0) {
+		aux.top()->printToken(nivel+1);
+		aux.pop();
 	}
 }
 

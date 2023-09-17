@@ -136,7 +136,7 @@ void Lexico::sigSimbolo() {
                   }
                   else if(ch== '$'){
                     token += ch;
-                    tipo = 2;
+                    tipo = 23;
                     simbolo = "Fin de entrada";
                     continuar = false;
                   }
