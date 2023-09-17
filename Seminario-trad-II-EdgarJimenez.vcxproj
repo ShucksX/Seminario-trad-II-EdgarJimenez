@@ -139,11 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ElementoPila.cpp" />
     <ClCompile Include="lexico.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sintactico.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ElementoPila.h" />
     <ClInclude Include="lexico.h" />
     <ClInclude Include="sintactico.h" />
   </ItemGroup>

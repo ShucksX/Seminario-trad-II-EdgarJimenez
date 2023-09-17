@@ -1,13 +1,13 @@
 #include "sintactico.h"
 
 Sintactico::Sintactico() {
-	pila.push("$");
-	pila.push("0");
+	pila.push(new Terminal("$"));
+	pila.push(new Estado("0"));
 }
 
 void Sintactico::empezar() {
-	pila.push("$");
-	pila.push("0");
+	pila.push(new Terminal("$"));
+	pila.push(new Estado("0"));
 }
 
 int Sintactico::getLRAt(int fila, int columna) {
@@ -27,15 +27,15 @@ void Sintactico::popPila() {
 	pila.pop();
 }
 
-string Sintactico::pilaTop() {
+ElementoPila* Sintactico::pilaTop() {
 	return pila.top();
 }
 
-int Sintactico::salida(string token, int tipo) { //Funcion principal
+int Sintactico::salida(string tokens, int tipo) { //Funcion principal
 	if (tipo < 0 || tipo > 3) { //Error o fuera de rango
 		return -200;
 	}
-	int fila = stoi(pilaTop());
+	int fila = stoi(pilaTop()->getToken());
 	if (fila < 0 || fila > 4) { //Error o fuera de rango (no deberia ocurrir pero por si acaso
 		return -200;
 	}
@@ -46,8 +46,8 @@ int Sintactico::salida(string token, int tipo) { //Funcion principal
 		return estado;
 	}
 	else if (estado >= 0) { //Desplazamientos
-		pila.push(token);
-		pila.push(to_string(estado));
+		pila.push(new Terminal(tokens));
+		pila.push(new Estado(to_string(estado)));
 		return estado;
 	}
 	else if (estado == -1) {//Regla 1
@@ -62,33 +62,41 @@ int Sintactico::salida(string token, int tipo) { //Funcion principal
 }
 
 int Sintactico::regla1() { // E -> id + E
+	NoTerminal* nt = new NoTerminal("E");
 	for (int i = 0; i < 6;i++) { //Haz pop al doble de tokens en la regla
+		nt->pushNodo(pilaTop());
 		popPila();
 	}
-	int fila = stoi(pilaTop()); //Ultimo valor en pila
+	int fila = stoi(pilaTop()->getToken()); //Ultimo valor en pila
 	int estado = getLRAt(fila, 3); //Obtener el valor para E
 	if (estado < -199) {
 		return -200; //Error 
 	}
 	else {
-		pila.push("E");
-		pila.push(to_string(estado));
+		pila.push(nt);
+		pila.push(new Estado(to_string(estado)));
 		return -1;
 	}
 
 }
 int Sintactico::regla2() { // E -> id
+	NoTerminal* nt = new NoTerminal("E");
 	for (int i = 0; i < 2; i++) { //Haz pop al doble de tokens en la regla
+		nt->pushNodo(pilaTop());
 		popPila();
 	}
-	int fila = stoi(pilaTop()); //Ultimo valor en pila
+	int fila = stoi(pilaTop()->getToken()); //Ultimo valor en pila
 	int estado = getLRAt(fila, 3); //Obtener el valor para E
 	if (estado < -199) {
 		return -200; //Error 
 	}
 	else {
-		pila.push("E");
-		pila.push(to_string(estado));
+		pila.push(nt);
+		pila.push(new Estado(to_string(estado)));
 		return -2;
 	}
+}
+
+int Sintactico::getPilaSize() {
+	return pila.size();
 }
