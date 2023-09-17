@@ -4,6 +4,8 @@
 #define _SINTACTICO
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <stack>
 #include <string>
 #include "ElementoPila.h"
@@ -12,19 +14,20 @@ using namespace std;
 
 class Sintactico{
 	private:
-		int LR[5][4] = { {2,-200,-200, 1}, {-200,-200,-199,-200},{-201,3,-2,-200},{2,-200,-200,4},{-200,-200,-1,-200}};  //-199 es r0, para eliminar confusiones con posibles d0, y las r son numeros negativos.
+		string LR[96][47];  //-199 es r0, para eliminar confusiones con posibles d0, y las r son numeros negativos.
 		stack<ElementoPila*> pila;
-		int regla1();
-		int regla2();
+		string regla1();
+		string regla2();
 	public:
 		Sintactico();
 		void empezar();
-		int getLRAt(int fila, int columna);
+		string getLRAt(int fila, int columna);
 		void printLR();
+		bool llenarLR();
 		void popPila();
 		int getPilaSize();
 		ElementoPila* pilaTop();
-		int salida(string tokens, int tipo);
+		string salida(string tokens, int tipo);
 };
 
 

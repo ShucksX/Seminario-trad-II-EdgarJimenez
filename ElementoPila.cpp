@@ -29,7 +29,7 @@ void NoTerminal::pushNodo(ElementoPila* elemento) {
 
 void NoTerminal::printToken(int nivel){
 	for (int i = 0; i < nivel; i++) {
-		cout << "\t";
+		cout << " ";
 	}
 	cout << "E -" << endl;
 	while (nodo.size() != 0) {

@@ -25,9 +25,13 @@ private:
     bool esOr(char c);
     bool esAnd(char c);
     bool esNot(char c);
-    bool esParentesis(char c);
-    bool esLlave(char c);
+    bool esParentesisI(char c);
+    bool esParentesisD(char c);
+    bool esLlaveI(char c);
+    bool esLlaveD(char c);
     bool esPuntoyComa(char c);
+    bool esComa(char c);
+    bool esComillas(char c);
     bool esValido(char c);
     void volver();
 

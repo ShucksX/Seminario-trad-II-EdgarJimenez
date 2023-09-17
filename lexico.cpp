@@ -64,7 +64,7 @@ void Lexico::sigSimbolo() {
                   else if (esSuma(ch)) {
                     token += ch;
                     continuar = false;
-                    tipo = 1;
+                    tipo = 5;
                     simbolo = "opSuma";
                   }
                   else if (esMul(ch)) {
@@ -80,19 +80,37 @@ void Lexico::sigSimbolo() {
                     tipo = 12;
                     simbolo = "Punto y coma";
                 }
+                  else if (esComa(ch)) {
+                     token += ch;
+                     continuar = false;
+                     tipo = 13;
+                     simbolo = "Coma";
+                    }
 
-                  else if (esParentesis(ch)) {
+                  else if (esParentesisI(ch)) {
                     token += ch;
                     continuar = false;
                     tipo = 14;
-                    simbolo = "Parentesis";
-                }
-                  else if (esLlave(ch)) {
+                    simbolo = "Parentesis Izquierdo";
+                }   
+                  else if (esParentesisD(ch)) {
+                     token += ch;
+                     continuar = false;
+                     tipo = 15;
+                     simbolo = "Parentesis Derecho";
+                 }
+                  else if (esLlaveI(ch)) {
                     token += ch;
                     continuar = false;
                     tipo = 16;
-                    simbolo = "Llave";
-                }
+                    simbolo = "Llave Izquierda";
+                }   
+                  else if (esLlaveD(ch)) {
+                     token += ch;
+                     continuar = false;
+                     tipo = 17;
+                     simbolo = "Llave Derecha";
+                    }
                   else if (esRelacion(ch)) {
                     token += ch;
                     estado = 6;
@@ -152,14 +170,14 @@ void Lexico::sigSimbolo() {
                 estado = 4; //Estado de punto decimal
                 token += ch;
                 }
-                  else if (esEspacio(ch) || ch == '$') {
+                else if (esEspacio(ch) || ch == '$') {
                 continuar = false;
                 tipo = 1;
                 simbolo = "Entero";
                 }
                   else {
                 volver();
-                tipo = 9999; //TODO ESTA CAMBIADO PARA EL SINTACTICO INICIAL
+                tipo = 1; //TODO ESTA CAMBIADO PARA EL SINTACTICO INICIAL
                 simbolo = "Entero";
                 }
                 break;
@@ -196,12 +214,12 @@ void Lexico::sigSimbolo() {
                 }
                 else if (esEspacio(ch) || ch == '$') {
                     continuar = false;
-                    tipo = 9999; //TODO ESTO CAMBIA EN SINTACTICO COMPLETO
+                    tipo = 2; //TODO ESTO CAMBIA EN SINTACTICO COMPLETO
                     simbolo = "Real";
                 }
                 else {
                     volver();
-                    tipo = 9999; //TODO ESTO CAMBIA EN SINTACTICO COMPLETO
+                    tipo = 2; //TODO ESTO CAMBIA EN SINTACTICO COMPLETO
                     simbolo = "Real";
                 }
                 break;
@@ -665,6 +683,21 @@ void Lexico::sigSimbolo() {
                     simbolo = "Tipo";
                 }
                 break;
+            case 35: //Cadena
+                if (esComillas(ch)) {
+                    token += ch;
+                    continuar = false;
+                    tipo = 3;
+                    simbolo = "Cadena";
+                }
+                else if (ch == '$') {
+                    continuar = false;
+                    tipo = -1;
+                    simbolo = "Error";
+                }
+                else {
+                    token += ch;
+                }
         }
     }
 }
@@ -723,16 +756,32 @@ bool Lexico::esOr(char c) {
     return c == '|';
 }
 
-bool Lexico::esParentesis(char c) {
-    return c == '(' || c == ')';
+bool Lexico::esParentesisI(char c) {
+    return c == '(';
 }
 
-bool Lexico::esLlave(char c) {
-    return c == '{' || c =='}';
+bool Lexico::esParentesisD(char c) {
+    return c == ')';
+}
+
+bool Lexico::esLlaveI(char c) {
+    return c == '{';
+}
+
+bool Lexico::esLlaveD(char c) {
+    return c == '}';
 }
 
 bool Lexico::esPuntoyComa(char c) {
     return c == ';';
+}
+
+bool Lexico::esComa(char c) {
+    return c == ',';
+}
+
+bool Lexico::esComillas(char c) {
+    return c == '"';
 }
 
 
