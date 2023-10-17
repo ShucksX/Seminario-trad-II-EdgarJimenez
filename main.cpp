@@ -19,12 +19,21 @@ int main() {
     char cadena[200];
     cout << "Compilador" << endl;
     string line;
+    bool flag = false;
     ifstream myfile("codigo.txt");
     if (myfile.is_open())
     {
         while (getline(myfile, line))
         {
-            strcpy_s(cadena, line.c_str());
+            char cadena2[200];
+            strcpy_s(cadena2, line.c_str());
+            if (flag){
+                strcat_s(cadena, cadena2);
+            }
+            else {
+                strcpy_s(cadena, cadena2);
+                flag = true;
+            }
         }
         myfile.close();
     }
@@ -33,8 +42,7 @@ int main() {
         cout << "Unable to open file";
         return 0;
     }
-
-
+    cout << cadena;
     lexico.entrada(cadena);
     sintactico.empezar();
     //sintactico.printLR();
