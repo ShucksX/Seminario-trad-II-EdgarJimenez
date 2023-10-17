@@ -27,6 +27,7 @@ class Sintactico{
 		int getPilaSize();
 		ElementoPila* pilaTop();
 		string salida(string tokens, int tipo);
+		string pilaToString();
 };
 
 

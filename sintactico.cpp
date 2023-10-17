@@ -295,3 +295,14 @@ string Sintactico::regla(int elementos, int columna, string estad, string nomReg
 int Sintactico::getPilaSize() {
 	return pila.size();
 }
+
+string Sintactico::pilaToString() {
+	stack<ElementoPila*> pila2;
+	pila2 = pila;
+	string pilaEntera = "";
+	while (!pila2.empty()) {
+		pilaEntera = pilaEntera + pila2.top()->getToken();
+		pila2.pop();
+	}
+	return pilaEntera;
+}

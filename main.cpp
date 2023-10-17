@@ -50,13 +50,13 @@ int main() {
             lexicoFlag = false;
         }
         if (salida.empty()) {
-            cout << back << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
+            cout << sintactico.pilaToString() << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
 
             cout << "Resultado del analisis sintactico: Error" << endl;
             break;
         }
         else {
-            cout << back << "\t\t\t"<< entradaSint  << "$\t\t" << salida << endl;
+            cout << sintactico.pilaToString() << "\t\t\t"<< entradaSint  << "$\t\t" << salida << endl;
         }
         entradaSint = lexico.getCadenaFromInd();
         back = sintactico.pilaTop()->getToken();
@@ -65,7 +65,7 @@ int main() {
         salida = sintactico.salida(lexico.token, lexico.tipo);
     }
     if (salida.compare("r0") == 0) {
-        cout << back << "\t\t\t" << entradaSint << "$\t\t" << "r0 (acept)" << endl;
+        cout << sintactico.pilaToString() << "\t\t\t" << entradaSint << "$\t\t" << "r0 (acept)" << endl;
         cout << "Resultado del analisis sintactico: Correcto" << endl;
         
     }
