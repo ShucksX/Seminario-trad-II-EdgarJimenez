@@ -46,6 +46,7 @@ int main() {
 
     string salida = sintactico.salida(lexico.token, lexico.tipo);
     while (salida.compare("r0") != 0) {
+        entradaSint = lexico.getCadenaFromInd();
         if (lexico.tipo < 0) {
             lexicoFlag = false;
         }
@@ -58,7 +59,6 @@ int main() {
         else {
             cout << sintactico.pilaToString() << "\t\t\t"<< entradaSint  << "$\t\t" << salida << endl;
         }
-        entradaSint = lexico.getCadenaFromInd();
         back = sintactico.pilaTop()->getToken();
         if (salida.find("-e") == string::npos)
             lexico.sigSimbolo();

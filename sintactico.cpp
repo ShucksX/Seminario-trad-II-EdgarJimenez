@@ -285,9 +285,7 @@ string Sintactico::regla(int elementos, int columna, string estad, string nomReg
 	else {
 		pila.push(nt);
 		pila.push(new Estado(estado));
-		if (elementos == 0)
-			return estad.substr(1) + "-e";
-		return estad.substr(1);
+		return estad.substr(1) + "-e";
 	}
 
 }
