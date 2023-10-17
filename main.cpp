@@ -47,17 +47,18 @@ int main() {
     string salida = sintactico.salida(lexico.token, lexico.tipo);
     while (salida.compare("r0") != 0) {
         entradaSint = lexico.getCadenaFromInd();
+        string pilaString = sintactico.pilaToString();
         if (lexico.tipo < 0) {
             lexicoFlag = false;
         }
         if (salida.empty()) {
-            cout << sintactico.pilaToString() << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
+            cout << pilaString << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
 
             cout << "Resultado del analisis sintactico: Error" << endl;
             break;
         }
         else {
-            cout << sintactico.pilaToString() << "\t\t\t"<< entradaSint  << "$\t\t" << salida << endl;
+            cout << pilaString << "\t\t\t"<< entradaSint  << "$\t\t" << salida << endl;
         }
         back = sintactico.pilaTop()->getToken();
         if (salida.find("-e") == string::npos)

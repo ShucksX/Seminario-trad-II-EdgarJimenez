@@ -83,15 +83,16 @@ ElementoPila* Sintactico::pilaTop() {
 }
 
 string Sintactico::salida(string tokens, int tipo) { //Funcion principal
-	if (tipo < 0 || tipo > 94) { //Error o fuera de rango
+	if (tipo < 0 || tipo > 46) { //Error o fuera de rango
 		return "";
 	}
 	int fila = stoi(pilaTop()->getToken());
-	if (fila < 0 || fila > 45) { //Error o fuera de rango (no deberia ocurrir pero por si acaso
+	if (fila < 0 || fila > 94) { //Error o fuera de rango (no deberia ocurrir pero por si acaso
 		return "";
 	}
 
 	string estado = getLRAt(fila, tipo);
+	//cout << fila << " " << tipo << " " << estado << endl ;
 	if (estado.compare("r0") == 0) { //Estado acept
 		return estado;
 	}
