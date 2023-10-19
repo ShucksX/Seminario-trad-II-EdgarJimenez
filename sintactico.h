@@ -14,7 +14,7 @@ using namespace std;
 
 class Sintactico{
 	private:
-		string LR[95][46];  //-199 es r0, para eliminar confusiones con posibles d0, y las r son numeros negativos.
+		string LR[95][46];
 		stack<ElementoPila*> pila;
 		string regla(int elementos,int columna, string estad, string nomRegla);
 	public:

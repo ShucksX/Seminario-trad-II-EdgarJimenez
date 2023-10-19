@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="ElementoPila.h" />
     <ClInclude Include="lexico.h" />
+    <ClInclude Include="semantico.h" />
     <ClInclude Include="sintactico.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

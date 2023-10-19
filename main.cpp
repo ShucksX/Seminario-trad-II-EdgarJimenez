@@ -42,12 +42,13 @@ int main() {
         cout << "Unable to open file";
         return 0;
     }
-    cout << cadena;
+    //cout << cadena;
     lexico.entrada(cadena);
     sintactico.empezar();
     //sintactico.printLR();
     cout << "Estado en pila\t\tEntrada\t\tSalida" << endl;
     bool lexicoFlag = true;
+    bool sintaticoFlag = true;
     string entradaSint = lexico.getCadenaFromInd();
     string back = sintactico.pilaTop()->getToken();
     lexico.sigSimbolo();
@@ -63,6 +64,7 @@ int main() {
             cout << pilaString << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
 
             cout << "Resultado del analisis sintactico: Error" << endl;
+            sintaticoFlag = false;
             break;
         }
         else {
@@ -78,12 +80,6 @@ int main() {
         cout << "Resultado del analisis sintactico: Correcto" << endl;
         
     }
-    cout << "Arbol de la pila: " << endl;
-
-    while (sintactico.getPilaSize() != 0) {
-        sintactico.pilaTop()->printToken(0);
-        sintactico.popPila();
-    }
 
     //RESULTADO DE ANALISIS LEXICO
     cout << "Resultado del analisis lexico: ";
@@ -92,6 +88,15 @@ int main() {
     }
     else {
         cout << "Error" << endl;
+    }
+    //ANALISIS SEMANTICO
+    if (lexicoFlag && sintaticoFlag) {
+        cout << "Arbol de la pila: " << endl;
+
+        while (sintactico.getPilaSize() != 0) {
+            sintactico.pilaTop()->printToken(0);
+            sintactico.popPila();
+        }
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;
