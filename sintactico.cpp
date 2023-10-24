@@ -275,7 +275,8 @@ string Sintactico::salida(string tokens, int tipo) { //Funcion principal
 string Sintactico::regla(int elementos, int columna, string estad, string nomRegla) { 
 	NoTerminal* nt = new NoTerminal(nomRegla);
 	for (int i = 0; i < elementos*2;i++) { //Haz pop al doble de tokens en la regla
-		nt->pushNodo(pilaTop());
+		if (div(i,2).rem == 1) //Para comodidad en semantico no se guardan los desplazamientos para el arbol
+			nt->pushNodo(pilaTop());
 		popPila();
 	}
 	int fila = stoi(pilaTop()->getToken()); //Ultimo valor en pila

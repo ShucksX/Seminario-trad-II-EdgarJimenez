@@ -142,6 +142,7 @@
     <ClCompile Include="ElementoPila.cpp" />
     <ClCompile Include="lexico.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="semantico.cpp" />
     <ClCompile Include="sintactico.cpp" />
   </ItemGroup>
   <ItemGroup>

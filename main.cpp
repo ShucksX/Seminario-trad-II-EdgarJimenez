@@ -7,6 +7,8 @@
 #include <string>
 #include "lexico.h"
 #include "sintactico.h"
+#include "semantico.h"
+
 
 using namespace std;
 
@@ -15,6 +17,7 @@ using namespace std;
 int main() {
     Lexico lexico;
     Sintactico sintactico;
+    Semantico semantico;
 
     char cadena[200];
     cout << "Compilador" << endl;
@@ -91,12 +94,14 @@ int main() {
     }
     //ANALISIS SEMANTICO
     if (lexicoFlag && sintaticoFlag) {
-        cout << "Arbol de la pila: " << endl;
+        semantico.start(sintactico);
+        //Descomente esto para solo imprimir arbol de pila
+        /*cout << "Arbol de la pila: " << endl;
 
         while (sintactico.getPilaSize() != 0) {
             sintactico.pilaTop()->printToken(0);
             sintactico.popPila();
-        }
+        }*/
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;
