@@ -97,7 +97,9 @@ string Sintactico::salida(string tokens, int tipo) { //Funcion principal
 		return estado;
 	}
 	else if (estado.substr(0,1).compare("d") == 0) { //Desplazamientos
-		pila.push(new Terminal(tokens));
+		Terminal* t = new Terminal(tokens);
+		t->setTipo(tipo);
+		pila.push(t);
 		pila.push(new Estado(estado.substr(1)));
 		return estado;
 	}

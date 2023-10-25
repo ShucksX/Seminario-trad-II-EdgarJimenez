@@ -20,8 +20,21 @@ stack<ElementoPila*> ElementoPila::getNodo() {
 	return nodoFalso;
 }
 
+int ElementoPila::getTipo() {
+	return -1;
+}
+
 Terminal::Terminal(string tokens) {
 	setToken(tokens);
+	tipo = -1;
+}
+
+void Terminal::setTipo(int tip) {
+	tipo = tip;
+}
+
+int Terminal::getTipo() {
+	return tipo;
 }
 
 NoTerminal::NoTerminal(string tokens) {

@@ -17,11 +17,16 @@ class ElementoPila {
 		void setToken(string tokens);
 		virtual void printToken(int nivel);
 		virtual stack<ElementoPila*> getNodo();
+		virtual int getTipo();
 };
 
 class Terminal : public ElementoPila{
+	private:
+		int tipo;
 	public:
 		Terminal(string tokens);
+		void setTipo(int tip);
+		int getTipo() override;
 };
 
 class NoTerminal : public ElementoPila {
