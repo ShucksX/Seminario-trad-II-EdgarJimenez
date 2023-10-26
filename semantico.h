@@ -26,12 +26,16 @@ class Semantico {
 		string funcionActual;
 		string tipoActual;
 		string error;
+		bool variableGlobal(stack<ElementoPila*> nodo);
+		bool ListaVar(stack<ElementoPila*> nodo, string tipo, string ambito);
+		void addVariable(string tipo, string variable, string ambito, string parametro);
 	public:
 		Semantico();
-		void start(Sintactico sintat);
-		void analizarNodo(ElementoPila* elemento);
+		bool start(Sintactico sintat);
+		bool analizarNodo(ElementoPila* elemento);
 		bool encontrarFuncion(string nombre);
 		bool encontrarVariable(string nombre, string ambito);
+		string getError();
 		void printFunciones();
 		void printVariables();
 
