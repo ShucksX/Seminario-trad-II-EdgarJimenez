@@ -23,12 +23,16 @@ class Semantico {
 		//0: TIPO 1: NOMBRE 2:PARAMETROS 
 		string funciones[100][3];
 		int funcionesCont;
-		string funcionActual;
-		string tipoActual;
 		string error;
 		bool variableGlobal(stack<ElementoPila*> nodo);
 		bool ListaVar(stack<ElementoPila*> nodo, string tipo, string ambito);
+		bool funcion(stack<ElementoPila*> nodo);
+		string parametros(stack<ElementoPila*> nodo, string ambito);
+		string listaParametros(stack<ElementoPila*> nodo, string ambito);
+		bool bloqFunc(stack<ElementoPila*> nodo, string ambito);
+		bool variableLocal(stack<ElementoPila*> nodo, string ambito);
 		void addVariable(string tipo, string variable, string ambito, string parametro);
+		void addFuncion(string tipo, string funcion, string parametros);
 	public:
 		Semantico();
 		bool start(Sintactico sintat);

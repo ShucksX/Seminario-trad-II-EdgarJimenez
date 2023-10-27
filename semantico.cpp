@@ -3,14 +3,12 @@
 Semantico::Semantico() {
     variablesCont = 0;
     funcionesCont = 0;
-    funcionActual = "#";
 }
 
 bool Semantico::start(Sintactico sintactico) {
     sint = sintactico;
     variablesCont = 0;
-    funcionesCont = 0;
-    funcionActual = "#";    
+    funcionesCont = 0;  
     while (sint.getPilaSize() != 0) {
         if (!analizarNodo(sint.pilaTop())) {
             return false;
@@ -24,14 +22,15 @@ string Semantico::getError() {
     return error;
 }
 
-//BIG WIP Empieza a manejar el arbol para la creacion y verificacion de las tablas semanticas.
+//BIG WIP Empieza a manejar el arbol para la creacion y verificacion de las tablas semanticas. AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS
 bool Semantico::analizarNodo(ElementoPila* elemento) {
     stack<ElementoPila*> nodo = elemento->getNodo();
     while (nodo.size() != 0) {
         if (!(nodo.top()->getToken().find("DefFunc") == string::npos)) {
             //Accede a funciones
-            cout << "Funcion:" << endl;
-            nodo.top()->printToken(0);
+            if (!funcion(nodo.top()->getNodo())) {
+                return false;
+            }
         }
         else if (!(nodo.top()->getToken().find("DefVar") == string::npos)) {
             //Obtiene vartiables globales
@@ -47,6 +46,119 @@ bool Semantico::analizarNodo(ElementoPila* elemento) {
 
     }
     return true;
+}
+
+bool Semantico::funcion(stack<ElementoPila*> nodo){
+    string tipo = nodo.top()->getToken();
+    nodo.pop();
+    string funcion = nodo.top()->getToken();
+    nodo.pop();
+    //Un pop mas por el parentesis
+    nodo.pop();
+    string param = parametros(nodo.top()->getNodo(), funcion);
+    nodo.pop();
+    if (param.find("e") == string::npos) {
+        addFuncion(tipo, funcion, param);
+        //un pop mas por el otro parentesis
+        nodo.pop();
+        if (!bloqFunc(nodo.top()->getNodo(), funcion)) {
+            return false;
+        }
+        nodo.pop();
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+string Semantico::parametros(stack<ElementoPila*> nodo, string ambito) {
+    if (nodo.empty()) {
+        return "sp";
+    }
+    else {
+        string tipo = nodo.top()->getToken();
+        nodo.pop();
+        string variable = nodo.top()->getToken();
+        nodo.pop();
+        if (encontrarVariable(variable, ambito)) {
+            error = "El parametro \"" + variable + "\" ya fue definida globalmente o en el ambito " + ambito + ".";
+            return "e";
+        }
+        addVariable(tipo, variable, ambito, "p");
+        string params;
+        if (tipo == "int") {
+            params = "i";
+        }
+        else {
+            params = "f";
+        }
+        params += listaParametros(nodo.top()->getNodo(), ambito);
+        nodo.pop();
+        return params;
+    }
+}
+
+string Semantico::listaParametros(stack<ElementoPila*> nodo, string ambito) {
+    if (nodo.empty()) {
+        return "";
+    }
+    else {
+        //Se hace un pop primero debido a la coma
+        nodo.pop();
+        string tipo = nodo.top()->getToken();
+        nodo.pop();
+        string variable = nodo.top()->getToken();
+        nodo.pop();
+        if (encontrarVariable(variable, ambito)) {
+            error = "El parametro \"" + variable + "\" ya fue definida globalmente o en el ambito " + ambito + ".";
+            return "e";
+        }
+        addVariable(tipo, variable, ambito, "p");
+        string params;
+        if (tipo == "int") {
+            params = "i";
+        }
+        else {
+            params = "f";
+        }
+        params += listaParametros(nodo.top()->getNodo(), ambito);
+        nodo.pop();
+        return params;
+    }
+}
+
+bool Semantico::bloqFunc(stack<ElementoPila*> nodo, string ambito) {
+    while (nodo.size() != 0) {
+        if (!(nodo.top()->getToken().find("DefVar") == string::npos)) {
+            //Obtiene vartiables globales
+            if (!variableLocal(nodo.top()->getNodo(),ambito)) {
+                return false;
+            }
+        }
+        else {
+            if (!bloqFunc(nodo.top()->getNodo(),ambito))
+                return false;
+        }
+        nodo.pop();
+
+    }
+    return true;
+}
+
+bool Semantico::variableLocal(stack<ElementoPila*> nodo, string ambito) {
+    string tipo = nodo.top()->getToken();
+    nodo.pop();
+    string variable = nodo.top()->getToken();
+    nodo.pop();
+    if (encontrarVariable(variable, ambito)) {
+        error = "La variable " + variable + " ya existe en el ambito actual o global.";
+        return false;
+    }
+    addVariable(tipo, variable, ambito, "np");
+    bool correcto = ListaVar(nodo.top()->getNodo(), tipo, ambito);
+    nodo.pop();
+    return correcto;
 }
 
 bool Semantico::encontrarFuncion(string nombre) {
@@ -67,7 +179,7 @@ bool Semantico::encontrarVariable(string nombre, string ambito) {
     if (variablesCont > 0) {
         for (int i = 0; i < variablesCont; i++) {
             if (variables[i][1] == nombre) {
-                if (variables[i][2] == ambito || variables[i][2] == "#") {
+                if (variables[i][2] == ambito || variables[i][2] == "#" || ambito == "#") {
                     return true;
                 }
             }
@@ -145,5 +257,14 @@ void Semantico::addVariable(string tipo, string variable, string ambito, string 
         variables[variablesCont][2] = ambito;
         variables[variablesCont][3] = parametro;
         variablesCont++;
+    }
+}
+
+void Semantico::addFuncion(string tipo, string funcion, string parametros) {
+    if (funcionesCont < 100) {
+        funciones[funcionesCont][0] = tipo;
+        funciones[funcionesCont][1] = funcion;
+        funciones[funcionesCont][2] = parametros;
+        funcionesCont++;
     }
 }
