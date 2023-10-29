@@ -3,6 +3,8 @@
 Semantico::Semantico() {
     variablesCont = 0;
     funcionesCont = 0;
+    tipoFuncion = "";
+    tipoVariable = "";
 }
 
 bool Semantico::start(Sintactico sintactico) {
@@ -131,10 +133,17 @@ string Semantico::listaParametros(stack<ElementoPila*> nodo, string ambito) {
 bool Semantico::bloqFunc(stack<ElementoPila*> nodo, string ambito) {
     while (nodo.size() != 0) {
         if (!(nodo.top()->getToken().find("DefVar") == string::npos)) {
-            //Obtiene vartiables globales
+            //Obtiene vartiables locales
             if (!variableLocal(nodo.top()->getNodo(),ambito)) {
                 return false;
             }
+        }
+        else if (!(nodo.top()->getToken().find("Sentencia") == string::npos)) {
+            //Obtiene sentencias
+            if(!sentencia(nodo.top(),ambito)){
+                return false;
+            }
+
         }
         else {
             if (!bloqFunc(nodo.top()->getNodo(),ambito))
@@ -144,6 +153,87 @@ bool Semantico::bloqFunc(stack<ElementoPila*> nodo, string ambito) {
 
     }
     return true;
+}
+
+bool Semantico::sentencia(ElementoPila* elemento, string ambito) {
+    stack<ElementoPila*> nodo = elemento->getNodo();
+    while (nodo.size() != 0) {
+        if (!(nodo.top()->getToken().find("LlamadaFunc") == string::npos)) {
+            //Obtiene llamadas a funcion
+            if (!llamadaFunc(nodo.top(), ambito)) {
+                return false;
+            }
+        }
+        else if (nodo.top()->getTipo() == 0) {
+            //Obtiene uso de variables en sentencia
+            if (!usoVar(elemento, ambito)) {
+                return false;
+            }
+        }
+        else {
+            if (!sentencia(nodo.top(), ambito))
+                return false;
+        }
+        nodo.pop();
+
+    }
+    return true;
+}
+
+bool Semantico::llamadaFunc(ElementoPila* elemento, string ambito) {
+    stack<ElementoPila*> nodo = elemento->getNodo();
+    if (existenciaFuncion(nodo.top()->getToken())) {
+        cout << "Llamada a la funcion " + nodo.top()->getToken() + ", esta es de tipo " + tipoFuncion << endl;
+        return true;
+    }
+    else {
+        error = "La funcion " + nodo.top()->getToken() +" no esta definida.";
+        return false;
+    }
+}
+
+bool Semantico::usoVar(ElementoPila* elemento, string ambito) {
+    stack<ElementoPila*> nodo = elemento->getNodo();
+    if (existenciaVariable(nodo.top()->getToken(),ambito)) {
+        cout << "Uso de variable " + nodo.top()->getToken() + ", esta es de tipo " + tipoVariable + " y esta en el ambito " + ambito << endl;
+        return true;
+    }
+    else {
+        error = "La variable " + nodo.top()->getToken() + " no esta definida en el ambito " + ambito + " o global";
+        return false;
+    }
+}
+
+bool Semantico::existenciaFuncion(string funcion) {
+    if (funcionesCont > 0) {
+        for (int i = 0; i < funcionesCont; i++) {
+            if (funciones[i][1] == funcion) {
+                tipoFuncion = funciones[i][0];
+                return true;
+            }
+        }
+        return false;
+    }
+    else {
+        return false;
+    }
+}
+
+bool Semantico::existenciaVariable(string variable, string ambito) {
+    if (variablesCont > 0) {
+        for (int i = 0; i < variablesCont; i++) {
+            if (variables[i][1] == variable) {
+                if (variables[i][2] == ambito || variables[i][2] == "#") {
+                    tipoVariable = variables[i][0];
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    else {
+        return false;
+    }
 }
 
 bool Semantico::variableLocal(stack<ElementoPila*> nodo, string ambito) {

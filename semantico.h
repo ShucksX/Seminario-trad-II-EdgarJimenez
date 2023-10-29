@@ -20,6 +20,8 @@ class Semantico {
 		//0: TIPO 1: NOMBRE 2:FUNCION A LA QUE CORRESPONDE (o ambito) 3: PARAMETRO O NO
 		string variables[100][4];
 		int variablesCont;
+		string tipoFuncion;
+		string tipoVariable;
 		//0: TIPO 1: NOMBRE 2:PARAMETROS 
 		string funciones[100][3];
 		int funcionesCont;
@@ -30,6 +32,9 @@ class Semantico {
 		string parametros(stack<ElementoPila*> nodo, string ambito);
 		string listaParametros(stack<ElementoPila*> nodo, string ambito);
 		bool bloqFunc(stack<ElementoPila*> nodo, string ambito);
+		bool sentencia(ElementoPila* elemento, string ambito);
+		bool llamadaFunc(ElementoPila* elemento, string ambito);
+		bool usoVar(ElementoPila* elemento, string ambito);
 		bool variableLocal(stack<ElementoPila*> nodo, string ambito);
 		void addVariable(string tipo, string variable, string ambito, string parametro);
 		void addFuncion(string tipo, string funcion, string parametros);
@@ -39,6 +44,8 @@ class Semantico {
 		bool analizarNodo(ElementoPila* elemento);
 		bool encontrarFuncion(string nombre);
 		bool encontrarVariable(string nombre, string ambito);
+		bool existenciaFuncion(string funcion);
+		bool existenciaVariable(string variable, string ambito);
 		string getError();
 		void printFunciones();
 		void printVariables();
