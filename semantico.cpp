@@ -4,6 +4,8 @@ Semantico::Semantico() {
     variablesCont = 0;
     funcionesCont = 0;
     indArg = 0;
+    indF = -1;
+    indV = -1;
 }
 
 bool Semantico::start(Sintactico sintactico) {
@@ -180,10 +182,16 @@ bool Semantico::sentencia(stack<ElementoPila*> nodo, string ambito) {
 }
 
 bool Semantico::llamadaFunc(stack<ElementoPila*> nodo, string ambito) {
-    int indF = existenciaFuncion(nodo.top()->getToken());
+    indF = existenciaFuncion(nodo.top()->getToken());
     if (indF != -1) {
         indArg = 0;
-        cout << "Llamada a la funcion " + nodo.top()->getToken() + ", esta es de tipo " + funciones[indF][0] << endl;
+        //Pop a nombre de funcion
+        nodo.pop();
+        //Pop a parentesis
+        nodo.pop();
+        if (!argumentos(nodo.top()->getNodo(),ambito)){
+            return false;
+        }
         return true;
     }
     else {
@@ -194,30 +202,89 @@ bool Semantico::llamadaFunc(stack<ElementoPila*> nodo, string ambito) {
 //WIP
 bool Semantico::argumentos(stack<ElementoPila*> nodo, string ambito) {
     while (nodo.size() != 0) {
-        if (!(nodo.top()->getToken().find("LlamadaFunc") == string::npos)) {
-            //Obtiene llamadas a funcion
-            if (!llamadaFunc(nodo.top()->getNodo(), ambito)) {
-                return false;
-            }
+        //Nodo de expresion
+        stack<ElementoPila*> termino = nodo.top()->getNodo();
+        //Nodo de termino
+        termino = termino.top()->getNodo();
+        //Verificar que el argumento existe y concuerda con la funcion
+        if (!verificarArgumento(termino.top(), ambito)) {
+            return false;
         }
-        else if (nodo.top()->getTipo() == 0) {
-            //Obtiene uso de variables en sentencia
-            if (!usoVar(nodo, ambito)) {
-                return false;
+        nodo.pop();
+        if (!listaArgumentos(nodo.top()->getNodo(), ambito)) {
+            return false;
+        }
+        return true;
+    }
+    if (funciones[indF][2].size() == 0) {
+        return true;
+    }
+    else {
+        error = "Se estan enviando menos argumentos de los que la funcion " + funciones[indF][1] + " requiere";
+        return false;
+    }
+}
+
+bool Semantico::listaArgumentos(stack<ElementoPila*> nodo, string ambito) {
+    while (nodo.size() != 0) {
+        //Pop por la coma
+        nodo.pop();
+        //Nodo de expresion
+        stack<ElementoPila*> termino = nodo.top()->getNodo();
+        //Nodo de termino
+        termino = termino.top()->getNodo();
+        //Verificar que el argumento existe y concuerda con la funcion
+        if (!verificarArgumento(termino.top(), ambito)) {
+            return false;
+        }
+        nodo.pop();
+        if (!listaArgumentos(nodo.top()->getNodo(), ambito)) {
+            return false;
+        }
+        return true;
+    }
+    if (indArg == funciones[indF][2].size()) {
+        return true;
+    }
+    else {
+        error = "Se estan enviando menos argumentos de los que la funcion " + funciones[indF][1] + " requiere";
+        return false;
+    }
+}
+
+bool Semantico::verificarArgumento(ElementoPila* argumento, string ambito) {
+    int indA = existenciaVariable(argumento->getToken(), ambito);
+    //Primero busca el argumento si esta definido
+    if (indA != -1) {
+        //Revisar que no sean demasiados argumentos
+        if (indArg >= funciones[indF][2].size()) {
+            error = "La funcion " + funciones[indF][1] + " solo acepta " + to_string(funciones[indF][2].size()) + " argumentos.";
+            return false;
+        }
+        //Revisar si el tipo de variable concuerda con el parametro de la funcion
+        if (variables[indA][0] == "int") {
+            if (funciones[indF][2].substr(indArg, 1) == "i") {
+                indArg++;
+                return true;
             }
         }
         else {
-            if (!sentencia(nodo.top()->getNodo(), ambito))
-                return false;
+            if (funciones[indF][2].substr(indArg, 1) == "f") {
+                indArg++;
+                return true;
+            }
         }
-        nodo.pop();
-
+        error = "El tipo del argumento " + argumento->getToken() + " no concuerda con la definicion de " + funciones[indF][1];
+        return false;
     }
-    return true;
+    else {
+        error = "La variable " + argumento->getToken() + " no esta definida en el ambito " + ambito + " o global";
+        return false;
+    }
 }
 
 bool Semantico::usoVar(stack<ElementoPila*> nodo, string ambito) {
-    int indV = existenciaVariable(nodo.top()->getToken(), ambito);
+    indV = existenciaVariable(nodo.top()->getToken(), ambito);
     if (indV != -1) {
         cout << "Uso de variable " + nodo.top()->getToken() + ", esta es de tipo " + variables[indV][0] + " y esta en el ambito " + ambito << endl;
         return true;

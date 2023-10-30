@@ -21,6 +21,8 @@ class Semantico {
 		string variables[100][4];
 		int variablesCont;
 		int indArg;
+		int indF;
+		int indV;
 		//0: TIPO 1: NOMBRE 2:PARAMETROS 
 		string funciones[100][3];
 		int funcionesCont;
@@ -34,6 +36,8 @@ class Semantico {
 		bool sentencia(stack<ElementoPila*> nodo, string ambito);
 		bool llamadaFunc(stack<ElementoPila*> nodo, string ambito);
 		bool argumentos(stack<ElementoPila*> nodo, string ambito);
+		bool listaArgumentos(stack<ElementoPila*> nodo, string ambito);
+		bool verificarArgumento(ElementoPila* argumento, string ambito);
 		bool usoVar(stack<ElementoPila*> nodo, string ambito);
 		bool variableLocal(stack<ElementoPila*> nodo, string ambito);
 		void addVariable(string tipo, string variable, string ambito, string parametro);

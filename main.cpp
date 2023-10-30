@@ -19,7 +19,7 @@ int main() {
     Sintactico sintactico;
     Semantico semantico;
 
-    char cadena[200];
+    char cadena[400];
     cout << "Compilador" << endl;
     string line;
     bool flag = false;
@@ -28,7 +28,7 @@ int main() {
     {
         while (getline(myfile, line))
         {
-            char cadena2[200];
+            char cadena2[400];
             strcpy_s(cadena2, line.c_str());
             if (flag){
                 strcat_s(cadena, cadena2);
@@ -94,7 +94,7 @@ int main() {
     }
     //ANALISIS SEMANTICO
     if (lexicoFlag && sintaticoFlag) {
-        /*cout << endl << "ANALISIS SEMANTICO" << endl;
+        cout << endl << "ANALISIS SEMANTICO" << endl;
         if (semantico.start(sintactico)) {
             semantico.printFunciones();
             semantico.printVariables();
@@ -102,14 +102,14 @@ int main() {
         else {
             cout << "Hubo un error: " << endl;
             cout << semantico.getError()<< endl;
-        }*/
+        }
         //Descomente esto y comenta lo anterior para solo imprimir arbol de pila 
-        cout << "Arbol de la pila: " << endl;
+        /*cout << "Arbol de la pila: " << endl;
 
         while (sintactico.getPilaSize() != 0) {
             sintactico.pilaTop()->printToken(0);
             sintactico.popPila();
-        }
+        }*/
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;
