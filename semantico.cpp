@@ -3,8 +3,6 @@
 Semantico::Semantico() {
     variablesCont = 0;
     funcionesCont = 0;
-    tipoFuncion = "";
-    tipoVariable = "";
 }
 
 bool Semantico::start(Sintactico sintactico) {
@@ -140,7 +138,7 @@ bool Semantico::bloqFunc(stack<ElementoPila*> nodo, string ambito) {
         }
         else if (!(nodo.top()->getToken().find("Sentencia") == string::npos)) {
             //Obtiene sentencias
-            if(!sentencia(nodo.top(),ambito)){
+            if(!sentencia(nodo.top()->getNodo(),ambito)){
                 return false;
             }
 
@@ -155,23 +153,22 @@ bool Semantico::bloqFunc(stack<ElementoPila*> nodo, string ambito) {
     return true;
 }
 
-bool Semantico::sentencia(ElementoPila* elemento, string ambito) {
-    stack<ElementoPila*> nodo = elemento->getNodo();
+bool Semantico::sentencia(stack<ElementoPila*> nodo, string ambito) {
     while (nodo.size() != 0) {
         if (!(nodo.top()->getToken().find("LlamadaFunc") == string::npos)) {
             //Obtiene llamadas a funcion
-            if (!llamadaFunc(nodo.top(), ambito)) {
+            if (!llamadaFunc(nodo.top()->getNodo(), ambito)) {
                 return false;
             }
         }
         else if (nodo.top()->getTipo() == 0) {
             //Obtiene uso de variables en sentencia
-            if (!usoVar(elemento, ambito)) {
+            if (!usoVar(nodo, ambito)) {
                 return false;
             }
         }
         else {
-            if (!sentencia(nodo.top(), ambito))
+            if (!sentencia(nodo.top()->getNodo(), ambito))
                 return false;
         }
         nodo.pop();
@@ -180,10 +177,10 @@ bool Semantico::sentencia(ElementoPila* elemento, string ambito) {
     return true;
 }
 
-bool Semantico::llamadaFunc(ElementoPila* elemento, string ambito) {
-    stack<ElementoPila*> nodo = elemento->getNodo();
-    if (existenciaFuncion(nodo.top()->getToken())) {
-        cout << "Llamada a la funcion " + nodo.top()->getToken() + ", esta es de tipo " + tipoFuncion << endl;
+bool Semantico::llamadaFunc(stack<ElementoPila*> nodo, string ambito) {
+    int indF = existenciaFuncion(nodo.top()->getToken());
+    if (indF != -1) {
+        cout << "Llamada a la funcion " + nodo.top()->getToken() + ", esta es de tipo " + funciones[indF][0] << endl;
         return true;
     }
     else {
@@ -192,10 +189,10 @@ bool Semantico::llamadaFunc(ElementoPila* elemento, string ambito) {
     }
 }
 
-bool Semantico::usoVar(ElementoPila* elemento, string ambito) {
-    stack<ElementoPila*> nodo = elemento->getNodo();
-    if (existenciaVariable(nodo.top()->getToken(),ambito)) {
-        cout << "Uso de variable " + nodo.top()->getToken() + ", esta es de tipo " + tipoVariable + " y esta en el ambito " + ambito << endl;
+bool Semantico::usoVar(stack<ElementoPila*> nodo, string ambito) {
+    int indV = existenciaVariable(nodo.top()->getToken(), ambito);
+    if (indV != -1) {
+        cout << "Uso de variable " + nodo.top()->getToken() + ", esta es de tipo " + variables[indV][0] + " y esta en el ambito " + ambito << endl;
         return true;
     }
     else {
@@ -204,35 +201,33 @@ bool Semantico::usoVar(ElementoPila* elemento, string ambito) {
     }
 }
 
-bool Semantico::existenciaFuncion(string funcion) {
+int Semantico::existenciaFuncion(string funcion) {
     if (funcionesCont > 0) {
         for (int i = 0; i < funcionesCont; i++) {
             if (funciones[i][1] == funcion) {
-                tipoFuncion = funciones[i][0];
-                return true;
+                return i;
             }
         }
-        return false;
+        return -1;
     }
     else {
-        return false;
+        return -1;
     }
 }
 
-bool Semantico::existenciaVariable(string variable, string ambito) {
+int Semantico::existenciaVariable(string variable, string ambito) {
     if (variablesCont > 0) {
         for (int i = 0; i < variablesCont; i++) {
             if (variables[i][1] == variable) {
                 if (variables[i][2] == ambito || variables[i][2] == "#") {
-                    tipoVariable = variables[i][0];
-                    return true;
+                    return i;
                 }
             }
         }
-        return false;
+        return -1;
     }
     else {
-        return false;
+        return -1;
     }
 }
 
