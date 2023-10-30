@@ -3,12 +3,14 @@
 Semantico::Semantico() {
     variablesCont = 0;
     funcionesCont = 0;
+    indArg = 0;
 }
 
 bool Semantico::start(Sintactico sintactico) {
     sint = sintactico;
     variablesCont = 0;
     funcionesCont = 0;  
+    indArg = 0;
     while (sint.getPilaSize() != 0) {
         if (!analizarNodo(sint.pilaTop())) {
             return false;
@@ -180,6 +182,7 @@ bool Semantico::sentencia(stack<ElementoPila*> nodo, string ambito) {
 bool Semantico::llamadaFunc(stack<ElementoPila*> nodo, string ambito) {
     int indF = existenciaFuncion(nodo.top()->getToken());
     if (indF != -1) {
+        indArg = 0;
         cout << "Llamada a la funcion " + nodo.top()->getToken() + ", esta es de tipo " + funciones[indF][0] << endl;
         return true;
     }
@@ -187,6 +190,30 @@ bool Semantico::llamadaFunc(stack<ElementoPila*> nodo, string ambito) {
         error = "La funcion " + nodo.top()->getToken() +" no esta definida.";
         return false;
     }
+}
+//WIP
+bool Semantico::argumentos(stack<ElementoPila*> nodo, string ambito) {
+    while (nodo.size() != 0) {
+        if (!(nodo.top()->getToken().find("LlamadaFunc") == string::npos)) {
+            //Obtiene llamadas a funcion
+            if (!llamadaFunc(nodo.top()->getNodo(), ambito)) {
+                return false;
+            }
+        }
+        else if (nodo.top()->getTipo() == 0) {
+            //Obtiene uso de variables en sentencia
+            if (!usoVar(nodo, ambito)) {
+                return false;
+            }
+        }
+        else {
+            if (!sentencia(nodo.top()->getNodo(), ambito))
+                return false;
+        }
+        nodo.pop();
+
+    }
+    return true;
 }
 
 bool Semantico::usoVar(stack<ElementoPila*> nodo, string ambito) {
