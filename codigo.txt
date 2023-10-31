@@ -1,16 +1,18 @@
 int a,t,g,bas;
 int suma(int v1, int v2){
 	if (v1 == 2) {
-		return v1 + v2;
+		v1 = 3.5;
 	}
 	else{
 		return v1 + 2;
 	}
+	
 }
 int main(float i, int e, int v2){ 
 	int bass,c;
 	float ged; 
-	a = bass + c; 
-	a = suma (bass,c);
+	a = bass; 
+	a = suma (3,c) + 3;
+	suma (a,bass);
 }
 int b;

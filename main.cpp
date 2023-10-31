@@ -94,6 +94,7 @@ int main() {
     }
     //ANALISIS SEMANTICO
     if (lexicoFlag && sintaticoFlag) {
+        Sintactico copiaSint = sintactico;
         cout << endl << "ANALISIS SEMANTICO" << endl;
         if (semantico.start(sintactico)) {
             semantico.printFunciones();
@@ -104,12 +105,12 @@ int main() {
             cout << semantico.getError()<< endl;
         }
         //Descomente esto y comenta lo anterior para solo imprimir arbol de pila 
-        /*cout << "Arbol de la pila: " << endl;
+        cout << "Arbol de la pila: " << endl;
 
-        while (sintactico.getPilaSize() != 0) {
-            sintactico.pilaTop()->printToken(0);
-            sintactico.popPila();
-        }*/
+        while (copiaSint.getPilaSize() != 0) {
+            copiaSint.pilaTop()->printToken(0);
+            copiaSint.popPila();
+        }
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;

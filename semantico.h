@@ -39,6 +39,10 @@ class Semantico {
 		bool listaArgumentos(stack<ElementoPila*> nodo, string ambito);
 		bool verificarArgumento(ElementoPila* argumento, string ambito);
 		bool usoVar(stack<ElementoPila*> nodo, string ambito);
+		bool asignacion(stack<ElementoPila*> nodo, string ambito);
+		bool buscarExpresion(stack<ElementoPila*> nodo, string ambito);
+		bool manejarExpresion(stack<ElementoPila*> nodo, string ambito);
+		bool verificarVariable(ElementoPila* variable, string ambito);
 		bool variableLocal(stack<ElementoPila*> nodo, string ambito);
 		void addVariable(string tipo, string variable, string ambito, string parametro);
 		void addFuncion(string tipo, string funcion, string parametros);
