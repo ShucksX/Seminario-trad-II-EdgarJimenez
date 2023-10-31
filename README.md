@@ -11,7 +11,8 @@ Analizador lexico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tre
 Sintactico Ejercicio 1: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico1_JimenezAcevesEdgar  
 Sintactico Ejercicio 2: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintactico2_JimenezAcevesEdgar  
 Sintactico con objetos: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/sintacticoObjetos_JimenezAcevesEdgar  
-Gramatica Completa: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/SintacticoCompleto_JimenezAcevesEdgar
+Gramatica Completa: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/SintacticoCompleto_JimenezAcevesEdgar  
+Semantico: https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/tree/semantico  
 
 ## Analizador Lexico ## 
 
@@ -43,6 +44,18 @@ Se imprime los mismos resultados en la verificacion de la regla, pero si la entr
 ## Gramatica completa ##  
 Con la gramatica completa obtenemos este resultado:  
 ![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/d0d1d9bd-6a1a-4813-bff0-526021277dea)
+
+## Analizador Semantico ##  
+Teniendo un codigo semanticamente correcto obtendremos el siguiente resultado:  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/af283d96-0b2d-4482-b3e9-bce3958c9fb4)  
+Esto se logra con el siguiente codigo:  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/f4186cd9-faa1-4a20-bfc3-30a338724e0f)  
+Pero si fuesemos a cambiar este codigo, para que por ejemplo, definamos "a" dos veces, obtendremos errores como estos:  
+![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/a3e7a860-60e6-49bc-901d-f26795310b78)  
+Estos errores tambien se aplican para errores como datos que no corresponden en una asignacion o llamadas a funciones incorrectas.  
+
+
+
 
 
 
