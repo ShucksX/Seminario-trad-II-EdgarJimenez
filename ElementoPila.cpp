@@ -15,8 +15,26 @@ void ElementoPila::printToken(int nivel) {
 	cout << token << endl;
 }
 
+stack<ElementoPila*> ElementoPila::getNodo() {
+	stack<ElementoPila*> nodoFalso;
+	return nodoFalso;
+}
+
+int ElementoPila::getTipo() {
+	return -1;
+}
+
 Terminal::Terminal(string tokens) {
 	setToken(tokens);
+	tipo = -1;
+}
+
+void Terminal::setTipo(int tip) {
+	tipo = tip;
+}
+
+int Terminal::getTipo() {
+	return tipo;
 }
 
 NoTerminal::NoTerminal(string tokens) {
@@ -32,16 +50,17 @@ void NoTerminal::printToken(int nivel){
 		cout << " ";
 	}
 	cout << this->getToken() <<" -" << endl;
-	stack<ElementoPila*> aux;
 	while (nodo.size() != 0) {
-		aux.push(nodo.top());
+		nodo.top()->printToken(nivel + 1);
 		nodo.pop();
 	}
-	while (aux.size() != 0) {
-		aux.top()->printToken(nivel+1);
-		aux.pop();
-	}
 }
+
+stack<ElementoPila*> NoTerminal::getNodo() {
+	return nodo;
+}
+
+
 
 Estado::Estado(string tokens) {
 	setToken(tokens);

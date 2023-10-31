@@ -7,6 +7,8 @@
 #include <string>
 #include "lexico.h"
 #include "sintactico.h"
+#include "semantico.h"
+
 
 using namespace std;
 
@@ -15,16 +17,26 @@ using namespace std;
 int main() {
     Lexico lexico;
     Sintactico sintactico;
+    Semantico semantico;
 
-    char cadena[200];
+    char cadena[400];
     cout << "Compilador" << endl;
     string line;
+    bool flag = false;
     ifstream myfile("codigo.txt");
     if (myfile.is_open())
     {
         while (getline(myfile, line))
         {
-            strcpy_s(cadena, line.c_str());
+            char cadena2[400];
+            strcpy_s(cadena2, line.c_str());
+            if (flag){
+                strcat_s(cadena, cadena2);
+            }
+            else {
+                strcpy_s(cadena, cadena2);
+                flag = true;
+            }
         }
         myfile.close();
     }
@@ -33,13 +45,13 @@ int main() {
         cout << "Unable to open file";
         return 0;
     }
-
-
+    //cout << cadena;
     lexico.entrada(cadena);
     sintactico.empezar();
     //sintactico.printLR();
     cout << "Estado en pila\t\tEntrada\t\tSalida" << endl;
     bool lexicoFlag = true;
+    bool sintaticoFlag = true;
     string entradaSint = lexico.getCadenaFromInd();
     string back = sintactico.pilaTop()->getToken();
     lexico.sigSimbolo();
@@ -55,6 +67,7 @@ int main() {
             cout << pilaString << "\t\t\t" << entradaSint << "$\t\t" << "Error" << endl;
 
             cout << "Resultado del analisis sintactico: Error" << endl;
+            sintaticoFlag = false;
             break;
         }
         else {
@@ -70,12 +83,6 @@ int main() {
         cout << "Resultado del analisis sintactico: Correcto" << endl;
         
     }
-    cout << "Arbol de la pila: " << endl;
-
-    while (sintactico.getPilaSize() != 0) {
-        sintactico.pilaTop()->printToken(0);
-        sintactico.popPila();
-    }
 
     //RESULTADO DE ANALISIS LEXICO
     cout << "Resultado del analisis lexico: ";
@@ -84,6 +91,26 @@ int main() {
     }
     else {
         cout << "Error" << endl;
+    }
+    //ANALISIS SEMANTICO
+    if (lexicoFlag && sintaticoFlag) {
+        Sintactico copiaSint = sintactico;
+        cout << endl << "ANALISIS SEMANTICO" << endl;
+        if (semantico.start(sintactico)) {
+            semantico.printFunciones();
+            semantico.printVariables();
+        }
+        else {
+            cout << "Hubo un error: " << endl;
+            cout << semantico.getError()<< endl;
+        }
+        //Descomente esto y comenta lo anterior para solo imprimir arbol de pila 
+        /*cout << "Arbol de la pila: " << endl;
+
+        while (copiaSint.getPilaSize() != 0) {
+            copiaSint.pilaTop()->printToken(0);
+            copiaSint.popPila();
+        }*/
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;
