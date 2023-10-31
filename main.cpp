@@ -105,12 +105,12 @@ int main() {
             cout << semantico.getError()<< endl;
         }
         //Descomente esto y comenta lo anterior para solo imprimir arbol de pila 
-        cout << "Arbol de la pila: " << endl;
+        /*cout << "Arbol de la pila: " << endl;
 
         while (copiaSint.getPilaSize() != 0) {
             copiaSint.pilaTop()->printToken(0);
             copiaSint.popPila();
-        }
+        }*/
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;

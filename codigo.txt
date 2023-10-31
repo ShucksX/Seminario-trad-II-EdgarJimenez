@@ -11,7 +11,7 @@ int suma(int v1, int v2){
 int main(float i, int e, int v2){ 
 	int bass,c;
 	float ged; 
-	a = bass; 
+	a = 3; 
 	a = suma (3,c) + 3;
 	suma (a,bass);
 }
