@@ -34,6 +34,8 @@ class Semantico {
 		string listaParametros(stack<ElementoPila*> nodo, string ambito);
 		bool bloqFunc(stack<ElementoPila*> nodo, string ambito);
 		bool sentencia(stack<ElementoPila*> nodo, string ambito);
+		bool buscarSentencia(stack<ElementoPila*> nodo, string ambito);
+		bool expresion(stack<ElementoPila*> nodo, string ambito);
 		bool llamadaFunc(stack<ElementoPila*> nodo, string ambito);
 		bool argumentos(stack<ElementoPila*> nodo, string ambito);
 		bool listaArgumentos(stack<ElementoPila*> nodo, string ambito);
