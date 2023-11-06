@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ElementoPila.cpp" />
+    <ClCompile Include="genCodigo.cpp" />
     <ClCompile Include="lexico.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="semantico.cpp" />
@@ -147,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ElementoPila.h" />
+    <ClInclude Include="genCodigo.h" />
     <ClInclude Include="lexico.h" />
     <ClInclude Include="semantico.h" />
     <ClInclude Include="sintactico.h" />
