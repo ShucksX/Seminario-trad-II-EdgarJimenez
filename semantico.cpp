@@ -158,29 +158,85 @@ bool Semantico::bloqFunc(stack<ElementoPila*> nodo, string ambito) {
 }
 
 bool Semantico::sentencia(stack<ElementoPila*> nodo, string ambito) {
-     if (!(nodo.top()->getToken().find("LlamadaFunc") == string::npos)) {
-         //Obtiene llamadas a funcion
-         if (!llamadaFunc(nodo.top()->getNodo(), ambito)) {
-                    return false;
-         }
-     }
-     else if (nodo.top()->getTipo() == 0) {
-         //Obtiene uso de variables en sentencia
-        indV = -1;
-        if (!usoVar(nodo, ambito)) {
-            return false;
+    if (!nodo.empty()) {
+        if (!(nodo.top()->getToken().find("LlamadaFunc") == string::npos)) {
+            //Obtiene llamadas a funcion
+            if (!llamadaFunc(nodo.top()->getNodo(), ambito)) {
+                return false;
+            }
+            nodo.pop();
         }
-     }
-     else {
-         while (nodo.top()->getNodo().empty()) {
-             nodo.pop();
-         }
-         if (!buscarExpresion(nodo.top()->getNodo(), ambito)) {
-             return false;
-         }
-     }
-     nodo.pop();
+        else if (nodo.top()->getTipo() == 0) {
+            //Obtiene uso de variables en sentencia
+            indV = -1;
+            if (!usoVar(nodo, ambito)) {
+                return false;
+            }
+        }
+        else {
+            if (!buscarSentencia(nodo, ambito)) {
+                return false;
+            }
+        }
+    }
      return true;
+}
+
+bool Semantico::buscarSentencia(stack<ElementoPila*> nodo, string ambito) {
+    while (nodo.size() != 0) {
+        if (!(nodo.top()->getToken().find("Sentencia") == string::npos)) {
+            //Obtiene sentencias
+            if (!sentencia(nodo.top()->getNodo(), ambito)) {
+                return false;
+            }
+
+        }
+        else if (!(nodo.top()->getToken().find("Expresion") == string::npos)) {
+            indV = -1;
+            if (!expresion(nodo.top()->getNodo(), ambito)) {
+                return false;
+            }
+        }
+        else {
+            if (!buscarSentencia(nodo.top()->getNodo(), ambito))
+                return false;
+        }
+        nodo.pop();
+
+    }
+    return true;
+}
+
+bool Semantico::expresion (stack<ElementoPila*> nodo, string ambito) {
+    while (nodo.size() != 0) {
+        if (!(nodo.top()->getToken().find("Termino") == string::npos)) {
+            if (!nodo.top()->getNodo().empty()) {
+                if (indV < 0) {
+                    stack<ElementoPila*> termino = nodo.top()->getNodo();
+                    indV = existenciaVariable(termino.top()->getToken(), ambito);
+                    if (indV < 0) {
+                        error = "La variable " + termino.top()->getToken() + " no esta definida";
+                        return false;
+                    }
+
+                }
+                else {
+                    stack<ElementoPila*> termino = nodo.top()->getNodo();
+                    if (!verificarVariable(termino.top(), ambito)) {
+                        return false;
+                    }
+                }
+            }
+
+        }
+        else {
+            if (!expresion(nodo.top()->getNodo(), ambito))
+                return false;
+        }
+        nodo.pop();
+
+    }
+    return true;
 }
 
 bool Semantico::llamadaFunc(stack<ElementoPila*> nodo, string ambito) {
@@ -362,79 +418,7 @@ bool Semantico::asignacion(stack<ElementoPila*> nodo, string ambito) {
     return true;
 }
 
-bool Semantico::buscarExpresion(stack<ElementoPila*> nodo, string ambito) {
-    while (nodo.size() != 0) {
-        if (!(nodo.top()->getToken().find("Sentencia") == string::npos)) {
-            //Obtiene sentencias
-            if (!sentencia(nodo.top()->getNodo(), ambito)) {
-                return false;
-            }
 
-        }
-        /*else if (!(nodo.top()->getToken().find("Expresion") == string::npos)) {
-            indV = -1;
-            stack<ElementoPila*> termino = nodo.top()->getNodo();
-            //Llega a termino
-            if (termino.top()->getToken() == "Termino")
-                termino = termino.top()->getNodo();
-            else {
-                return true;
-            }
-            indV = existenciaVariable(termino.top()->getToken(), ambito);
-            if (indV == -1) {
-                error = "La variable " + termino.top()->getToken() + " no esta definida en el ambito " + ambito + " o global";
-                return false;
-            }
-            else {
-                nodo.pop();
-                if(nodo.top()->getNodo().empty())
-                    nodo.pop();
-                if (!manejarExpresion(nodo.top()->getNodo(), ambito)) {
-                    return false;
-                }
-            }
-        }*/
-        else {
-            if (!buscarExpresion(nodo.top()->getNodo(), ambito))
-                return false;
-        }
-        nodo.pop();
-
-    }
-    return true;
-}
-
-bool Semantico::manejarExpresion(stack<ElementoPila*> nodo, string ambito) {
-    if (!nodo.empty()) {
-        //Expresion
-        stack<ElementoPila*> termino = nodo.top()->getNodo();
-        //Llega a termino
-        if (termino.top()->getToken() == "Termino")
-            termino = termino.top()->getNodo();
-        if (termino.top()->getToken() == "LlamadaFunc") {
-            if (!llamadaFunc(termino.top()->getNodo(), ambito)) {
-                return false;
-            }
-            if (variables[indV][0] != funciones[indF][0]) {
-                error = "La funcion " + funciones[indF][1] + " no puede ser asignada a " + variables[indV][1] + " porque los tipos no concuerdan";
-                return false;
-            }
-        }
-        else {
-            if (!verificarVariable(termino.top(), ambito)) {
-                return false;
-            }
-        }
-        nodo.pop();
-        //Otro pop por suma o punto y coma o similares
-        if (!nodo.empty() && nodo.top()->getNodo().empty())
-            nodo.pop();
-        if (!manejarExpresion(nodo, ambito)) {
-            return false;
-        }
-    }
-    return true;
-}
 
 bool Semantico::verificarVariable(ElementoPila* variable, string ambito) {
     //Primero checa si es numero real o entero

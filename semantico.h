@@ -34,14 +34,14 @@ class Semantico {
 		string listaParametros(stack<ElementoPila*> nodo, string ambito);
 		bool bloqFunc(stack<ElementoPila*> nodo, string ambito);
 		bool sentencia(stack<ElementoPila*> nodo, string ambito);
+		bool buscarSentencia(stack<ElementoPila*> nodo, string ambito);
+		bool expresion(stack<ElementoPila*> nodo, string ambito);
 		bool llamadaFunc(stack<ElementoPila*> nodo, string ambito);
 		bool argumentos(stack<ElementoPila*> nodo, string ambito);
 		bool listaArgumentos(stack<ElementoPila*> nodo, string ambito);
 		bool verificarArgumento(ElementoPila* argumento, string ambito);
 		bool usoVar(stack<ElementoPila*> nodo, string ambito);
 		bool asignacion(stack<ElementoPila*> nodo, string ambito);
-		bool buscarExpresion(stack<ElementoPila*> nodo, string ambito);
-		bool manejarExpresion(stack<ElementoPila*> nodo, string ambito);
 		bool verificarVariable(ElementoPila* variable, string ambito);
 		bool variableLocal(stack<ElementoPila*> nodo, string ambito);
 		void addVariable(string tipo, string variable, string ambito, string parametro);
