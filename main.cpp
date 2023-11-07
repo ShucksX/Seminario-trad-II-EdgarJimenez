@@ -8,6 +8,8 @@
 #include "lexico.h"
 #include "sintactico.h"
 #include "semantico.h"
+#include "genCodigo.h"
+
 
 
 using namespace std;
@@ -99,6 +101,14 @@ int main() {
         if (semantico.start(sintactico)) {
             semantico.printFunciones();
             semantico.printVariables();
+            cout << "Generando codigo... " << endl;
+            GenCodigo genCodigo;
+            if (genCodigo.crearASM(copiaSint,semantico)) {
+                cout << "Codigo generado con exito " << endl;
+            }
+            else {
+                cout << "Error generando codigo" << endl;
+            }
         }
         else {
             cout << "Hubo un error: " << endl;
