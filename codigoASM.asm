@@ -4,7 +4,9 @@ section .bss
 	g RESB 1
 	bas RESD 1
 	b RESB 1
+
 section .text
+
 global main
 
 suma: 
