@@ -47,9 +47,9 @@ Con la gramatica completa obtenemos este resultado:
 
 ## Analizador Semantico ##  
 Teniendo un codigo semanticamente correcto obtendremos el siguiente resultado:  
-![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/af283d96-0b2d-4482-b3e9-bce3958c9fb4)  
+![image](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/ebf8b5ed-e284-42d3-9ec1-f4a793979520)   
 Esto se logra con el siguiente codigo:  
-![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/f4186cd9-faa1-4a20-bfc3-30a338724e0f)  
+![image](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/0cd12b61-641e-49cb-8d63-c665c9cb9dc2)   
 Pero si fuesemos a cambiar este codigo, para que por ejemplo, definamos "a" dos veces, obtendremos errores como estos:  
 ![imagen](https://github.com/ShucksX/Seminario-trad-II-EdgarJimenez/assets/55963528/a3e7a860-60e6-49bc-901d-f26795310b78)  
 Estos errores tambien se aplican para errores como datos que no corresponden en una asignacion o llamadas a funciones incorrectas.  
