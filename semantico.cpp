@@ -604,3 +604,19 @@ void Semantico::addFuncion(string tipo, string funcion, string parametros) {
         funcionesCont++;
     }
 }
+
+string Semantico::getVariableAt(int i, int j) {
+    return variables[i][j];
+}
+
+string Semantico::getFuncionAt(int i, int j) {
+    return funciones[i][j];
+}
+
+int Semantico::getFuncCont() {
+    return funcionesCont;
+}
+
+int Semantico::getVarCont() {
+    return variablesCont;
+}

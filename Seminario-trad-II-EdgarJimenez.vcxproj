@@ -54,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -140,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ElementoPila.cpp" />
+    <ClCompile Include="genCodigo.cpp" />
     <ClCompile Include="lexico.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="semantico.cpp" />
@@ -147,11 +149,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ElementoPila.h" />
+    <ClInclude Include="genCodigo.h" />
     <ClInclude Include="lexico.h" />
     <ClInclude Include="semantico.h" />
     <ClInclude Include="sintactico.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

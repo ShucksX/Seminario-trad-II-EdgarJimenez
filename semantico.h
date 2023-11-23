@@ -17,14 +17,10 @@ using namespace std;
 class Semantico {
 	private:
 		Sintactico sint;
-		//0: TIPO 1: NOMBRE 2:FUNCION A LA QUE CORRESPONDE (o ambito) 3: PARAMETRO O NO
-		string variables[100][4];
 		int variablesCont;
 		int indArg;
 		int indF;
 		int indV;
-		//0: TIPO 1: NOMBRE 2:PARAMETROS 
-		string funciones[100][3];
 		int funcionesCont;
 		string error;
 		bool variableGlobal(stack<ElementoPila*> nodo);
@@ -47,6 +43,10 @@ class Semantico {
 		void addVariable(string tipo, string variable, string ambito, string parametro);
 		void addFuncion(string tipo, string funcion, string parametros);
 	public:
+		//0: TIPO 1: NOMBRE 2:FUNCION A LA QUE CORRESPONDE (o ambito) 3: PARAMETRO O NO
+		string variables[100][4];
+		//0: TIPO 1: NOMBRE 2:PARAMETROS 
+		string funciones[100][3];
 		Semantico();
 		bool start(Sintactico sintat);
 		bool analizarNodo(ElementoPila* elemento);
@@ -55,6 +55,10 @@ class Semantico {
 		int existenciaFuncion(string funcion);
 		int existenciaVariable(string variable, string ambito);
 		string getError();
+		string getVariableAt(int i, int j);
+		string getFuncionAt(int i, int j);
+		int getVarCont();
+		int getFuncCont();
 		void printFunciones();
 		void printVariables();
 
