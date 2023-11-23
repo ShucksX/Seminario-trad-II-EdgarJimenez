@@ -124,7 +124,6 @@ int main() {
     }
     
     cout << "Programa terminado, presiona enter para terminar" << endl;
-    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     cin.get();
 
     return 0;

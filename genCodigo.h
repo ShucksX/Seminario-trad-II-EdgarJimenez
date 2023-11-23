@@ -4,6 +4,9 @@
 #define _GENCODIGO
 
 #include <iostream>
+#include <windows.h>
+#include <filesystem>
+#include <cstdlib>
 #include <string>
 #include <stdio.h>
 #include <fstream>

@@ -5,7 +5,7 @@ GenCodigo::GenCodigo() {
 }
 
 bool GenCodigo::crearASM(Sintactico sint, Semantico sem) {
-	ofstream codigo("codigoASM.asm");
+	/*ofstream codigo("codigoASM.asm");
 	codigo << "section .bss" << std::endl;
 	for (int i = 0; i < sem.getVarCont(); i++) {
 		if (sem.variables[i][2] == "#") {
@@ -22,6 +22,13 @@ bool GenCodigo::crearASM(Sintactico sint, Semantico sem) {
 			codigo << sem.funciones[i][1] + ": " << endl;
 		}
 	}
-	codigo << "main:" << std::endl;
+	codigo << "main:" << std::endl;*/
+	std::ifstream  src("codigo.txt", std::ios::binary);
+	std::ofstream  dst("codigo.c", std::ios::binary);
+
+	dst << src.rdbuf();
+	system("gcc codigo.c -o test");
+	//Ejecutar exe
+	system("start test");
 	return true;
 }
